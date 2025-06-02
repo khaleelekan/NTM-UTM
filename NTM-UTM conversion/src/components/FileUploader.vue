@@ -14,7 +14,7 @@
   <script setup>
   import Papa from 'papaparse'
   import { ref } from 'vue'
-  import { ntmToWGS84 } from '../utils/projection.js'
+  import { ntmToWGS84 } from '../utils/Projections.js'
   
   const parsedData = ref([])
   const convertedResults = ref([])
@@ -52,4 +52,4 @@
     padding: 8px;
     border-radius: 6px;
   }
-  </style>../utils/conversion.js
+  </style>../utils/conversion.js../utils/Projections.js

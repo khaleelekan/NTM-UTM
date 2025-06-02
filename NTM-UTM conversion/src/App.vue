@@ -1,39 +1,28 @@
 <template>
-  <div class="app">
-    <h1>Coordinate Uploader</h1>
-
-    <CoordinateForm
-      @submit="handleSingleSubmit"
-      @bulk-upload="handleBulkUpload"
-    />
-
-    <ResultsList :results="coordinates" />
+  <div id="app" class="min-h-screen bg-gray-50 flex items-center justify-center">
+    <NTMtoUTMWrapper />
   </div>
 </template>
 
-<script setup>
-import CoordinateForm from './components/CoordinateForm.vue'
-import ResultsList from './components/ResultsList.vue'
-import { ref } from 'vue'
+<script>
+import NTMtoUTMWrapper from './components/NTMtoUTMWrapper.vue';
 
-const coordinates = ref([])
-
-// Handle single input submission
-function handleSingleSubmit(coord) {
-  coordinates.value.push(coord)
-}
-
-// Handle bulk upload submission
-function handleBulkUpload(coords) {
-  coordinates.value.push(...coords)
-}
+export default {
+  name: 'App',
+  components: {
+    NTMtoUTMWrapper,
+  },
+};
 </script>
 
-<style scoped>
-.app {
-  max-width: 800px;
-  margin: auto;
-  padding: 24px;
+<style>
+/* optional global styles */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
 }
 </style>
+
 
