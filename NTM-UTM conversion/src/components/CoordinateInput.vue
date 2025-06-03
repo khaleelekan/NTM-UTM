@@ -2,11 +2,11 @@
   <div class="coordinate-input p-4 border rounded shadow">
     <label>
       {{ eastingLabel }}:
-      <input type="number" v-model.number="easting" :placeholder="`Enter ${eastingLabel}`" />
+      <input type="number" v-model.number="easting" placeholder="Enter Easting" />
     </label>
     <label>
       {{ northingLabel }}:
-      <input type="number" v-model.number="northing" :placeholder="`Enter ${northingLabel}`" />
+      <input type="number" v-model.number="northing" placeholder="Enter Northing" />
     </label>
     <button @click="convert" class="mt-2 px-4 py-1 bg-blue-600 text-white rounded">Convert</button>
   </div>
@@ -41,5 +41,6 @@ export default {
   },
 };
 </script>
+
 
 

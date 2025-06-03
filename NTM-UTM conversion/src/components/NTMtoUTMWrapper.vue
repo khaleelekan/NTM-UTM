@@ -1,7 +1,7 @@
 <template>
-  <div class="p-4 max-w-6xl mx-auto flex gap-6">
-    <!-- Left pane: Inputs and results -->
-    <div class="flex-1 max-w-md">
+  <div class="flex w-full max-w-7xl mx-auto p-6 gap-6 h-[80vh]">
+    <!-- Left Side: Input and Result -->
+    <div class="flex flex-col flex-shrink-0 w-96 overflow-auto border rounded p-4">
       <h1 class="text-xl font-bold mb-4">NTM ⇄ UTM Converter</h1>
 
       <select v-model="direction" class="mb-4 p-2 border rounded w-full">
@@ -9,26 +9,22 @@
         <option value="UTMtoNTM">UTM to NTM</option>
       </select>
 
-      <CoordinateInput
-        :eastingLabel="inputEastingLabel"
-        :northingLabel="inputNorthingLabel"
-        @convert="handleConvert"
-      />
+      <CoordinateInput @convert="handleConvert" />
 
       <div v-if="convertedCoords" class="mt-4 p-4 border rounded bg-gray-100">
         <p>
-          <strong>{{ outputLabel }} Easting:</strong>
+          <strong>{{ direction === 'NTMtoUTM' ? 'UTM' : 'NTM' }} Easting:</strong>
           {{ convertedCoords[0].toFixed(3) }}
         </p>
         <p>
-          <strong>{{ outputLabel }} Northing:</strong>
+          <strong>{{ direction === 'NTMtoUTM' ? 'UTM' : 'NTM' }} Northing:</strong>
           {{ convertedCoords[1].toFixed(3) }}
         </p>
       </div>
     </div>
 
-    <!-- Right pane: Map -->
-    <div class="flex-1 h-[70vh] rounded overflow-hidden border">
+    <!-- Right Side: Map -->
+    <div class="flex-1 border rounded overflow-hidden">
       <MapDisplay v-if="convertedCoords" :coords="convertedCoords" />
     </div>
   </div>
@@ -47,17 +43,6 @@ export default {
       convertedCoords: null,
     };
   },
-  computed: {
-    inputEastingLabel() {
-      return this.direction === 'NTMtoUTM' ? 'NTM Easting' : 'UTM Easting';
-    },
-    inputNorthingLabel() {
-      return this.direction === 'NTMtoUTM' ? 'NTM Northing' : 'UTM Northing';
-    },
-    outputLabel() {
-      return this.direction === 'NTMtoUTM' ? 'UTM' : 'NTM';
-    },
-  },
   methods: {
     handleConvert(coords) {
       if (this.direction === 'NTMtoUTM') {
@@ -71,12 +56,7 @@ export default {
 </script>
 
 <style scoped>
-/* Optional: add scrollbar for the left pane if content is tall */
-div.flex-1.max-w-md {
-  max-height: 70vh;
-  overflow-y: auto;
-}
+/* Optional custom map container style if needed */
 </style>
-
 
   
