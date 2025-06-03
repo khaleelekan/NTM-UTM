@@ -29,20 +29,24 @@ export default {
     proj4.defs('UTM',
       '+proj=utm +zone=31 +datum=WGS84 +units=m +no_defs');
 
-    // Initialize the map
+    // Initialize the map centered roughly in Nigeria
     this.map = L.map(this.$refs.mapContainer).setView([9.08, 7.49], 7);
+
+    // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors',
     }).addTo(this.map);
 
-    this.marker = null;
-
+    // Add marker if coords passed in as prop
     if (this.coords) {
       this.updateMarker(this.coords);
     }
 
+    // Listen for clicks on the map
     this.map.on('click', this.handleMapClick);
 
+    // Fix for map resizing issues
     this.$nextTick(() => {
       setTimeout(() => {
         this.map.invalidateSize();
@@ -53,6 +57,19 @@ export default {
   methods: {
     updateMarker(coords) {
       if (!coords) return;
+
+      // Coordinates passed in are expected as [easting, northing]
+      // but Leaflet needs [lat, lng], so convert to WGS84 first
+      // Here we assume input coords are in UTM or NTM; you might want to adjust
+
+      // For simplicity, treat coords as [lng, lat] if you pass them as such
+      // If needed, convert proj coords to WGS84 here before using
+
+      // Example: coords = [easting, northing] in UTM or NTM
+      // convert to WGS84:
+      // const [lng, lat] = proj4('UTM', 'WGS84', coords); // or 'NTM'
+
+      // For now, assuming coords = [lng, lat]
       const [lng, lat] = coords;
 
       if (this.marker) {
@@ -84,6 +101,7 @@ export default {
         ntm: { easting: ntmE, northing: ntmN },
       });
 
+      // Show popup with formatted coordinates
       L.popup()
         .setLatLng([lat, lng])
         .setContent(`
@@ -106,6 +124,8 @@ export default {
   overflow: hidden;
 }
 </style>
+
+
 
 
 

@@ -1,8 +1,6 @@
-@import './base.css';
 
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
 
+@import "tailwindcss";
 
 
 #app {
